@@ -40,42 +40,70 @@ RSpec.describe RSA do
 
 
   describe 'decrypt and encrypt' do
-    it "back and forth" do
-      tester = RSA.new(1,2,3)
+    tester = RSA.new(1,2,3)
+
+    it "make sure when decrypted the encrypted string remains the same" do
       res1 = tester.decrypt("sample string")
       res2 = tester.decrypt("sample string")
       expect(res1).to eq res2
     end
+
+
+    it "string with numbers" do
+      res1 = tester.decrypt("13434343434543324677534354743453")
+      res2 = tester.decrypt("13434343434543324677534354743453")
+      expect(res1).to eq res2
+    end
+
+
+    it "cyrilic string" do
+      res1 = tester.decrypt("кфйгдлгйсдлф")
+      res2 = tester.decrypt("кфйгдлгйсдлф")
+      expect(res1).to eq res2
+    end
+
+    it "empty string" do
+      res1 = tester.decrypt("")
+      res2 = tester.decrypt("")
+      expect(res1).to eq res2
+    end
+
   end
 
 
 
-
   describe 'initialize' do
-    it "1 2 3 initialize" do
+    it "initialize with values 1 2 3 " do
       helper = RSA.new(1,2,3)
       expect(helper.n).to eq 1
       expect(helper.e).to eq 2
       expect(helper.d).to eq 3
     end
 
-    it "999 999 999 initialize" do
+    it "initialize with values 999 999 999 " do
       helper = RSA.new(999,999,999)
       expect(helper.n).to eq 999
       expect(helper.e).to eq 999
       expect(helper.d).to eq 999
+    end
+
+    it "initialize with values 0 0 0 " do
+      helper = RSA.new(0,0,0)
+      expect(helper.n).to eq 0
+      expect(helper.e).to eq 0
+      expect(helper.d).to eq 0
     end
   end
 
 
 
   describe 'n' do
-    it "when 81 2 3 initialize" do
+    it "initialize with values 81 2 3 " do
       helper = RSA.new(81,2,3)
       expect(helper.n).to eq 81
     end
 
-    it "1024 1024 1024 initialize" do
+    it "initialize with values 1024 1024 1024" do
       helper = RSA.new(1024,1024,1024)
       expect(helper.n).to eq 1024
     end
@@ -88,12 +116,12 @@ RSpec.describe RSA do
 
 
   describe 'e' do
-    it "when 1 77 3 initialize" do
+    it "initialize with values 1 77 3" do
       helper = RSA.new(1,77,3)
       expect(helper.e).to eq 77
     end
 
-    it "999 999 999 initialize" do
+    it "initialize with values 999 999 999" do
       helper = RSA.new(999,999,999)
       expect(helper.e).to eq 999
     end
@@ -106,7 +134,7 @@ RSpec.describe RSA do
 
 
   describe 'd' do
-    it "when 1 2 342434234324 initialize" do
+    it "initialized with values 1 2 342434234324 " do
       helper = RSA.new(1,2,342434234324)
       expect(helper.d).to eq 342434234324
     end
