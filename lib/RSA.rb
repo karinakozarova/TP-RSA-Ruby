@@ -58,59 +58,53 @@ class RSA
     decrypted_array
   end
 
-  private
+private
+
   def gen_distinct_primes
     (Prime.first 120)[10 + Random.new.rand(110)]
   end
 
   def are_coprime a,b = 780
     if gcd(a,b) == 1 then true
-    else false
-    end
+    else false end
   end
 
   def generate_random_coprime
     is_false = false
     while is_false==false do
         num = rand(20..20202).to_i
-        if is_prime?(num) && are_coprime(num,780) then
-          is_false = true
-        end
-      end
-      num
+        if is_prime?(num) && are_coprime(num,780) then is_false = true end
     end
+    num
+  end
 
-    def is_prime?(number)
-      if number <= 1
-        return false
-      end
-      i = 2
-      while i < number
-        if number % i == 0
-          return false
-        end
-        i += 1
-      end
-      return true
+  def is_prime?(number)
+    if number <= 1 then return false end
+    i = 2
+    while i < number
+      if number % i == 0 then return false end
+      i += 1
     end
+    return true
+  end
 
-    def gcd a, b #stack exchange credit
-      b == 0 ? a : gcd(b, a.modulo(b))
-    end
+  def gcd a, b #stack exchange credit
+    b == 0 ? a : gcd(b, a.modulo(b))
+  end
 
-    def calculate_d λ,e
-      for i in 2..λ
-        calc = (i * e) % λ
-        if calc== 1
-          d = i
-          break
-        end
+  def calculate_d λ,e
+    for i in 2..λ
+      calc = (i * e) % λ
+      if calc== 1
+        d = i
+        break
       end
-      @d = d
-      d
     end
+    @d = d
+    d
+  end
 
-    def calc_λ p,q
-      (p - 1).lcm(q - 1)
-    end
+  def calc_λ p,q
+    (p - 1).lcm(q - 1)
+  end
 end

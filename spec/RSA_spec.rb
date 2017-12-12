@@ -51,7 +51,7 @@ RSpec.describe RSA do
 
   end
 
-  describe 'encrypt' do
+  describe 'decrypt' do
     temp = RSA.new 0, 0, 0
     keys = temp.new_key
     rsa = RSA.new keys[0], keys[1], keys[2]
@@ -66,7 +66,7 @@ RSpec.describe RSA do
       expect(rsa.decrypt(rsa.encrypt string)).to eq string
     end
 
-     it "testing numeric string" do
+    it "testing numeric string" do
       string =  "11.22.345.5556546345.1999"
       expect(rsa.decrypt(rsa.encrypt string)).to eq string
     end
