@@ -1,8 +1,8 @@
-require 'RSA'
+require "RSA"
 
 RSpec.describe RSA do
 
-  describe 'new_key' do
+  describe "new_key" do
     it "returns an array with exactly 3 values" do
       helper = RSA.new(1,2,3).new_key.size()
       expect(helper).to eq 3
@@ -26,8 +26,14 @@ RSpec.describe RSA do
   end
 
 
+  describe "is instance " do
+    it "of class RSA" do
+      helper = RSA.new
+      expect(helper).to be_instance_of(RSA)
+    end
+  end
 
-  describe 'encrypt' do
+  describe "encrypt" do
     keys = RSA.new(0, 0, 0).new_key
     rsa = RSA.new keys[0], keys[1], keys[2]
 
@@ -47,11 +53,9 @@ RSpec.describe RSA do
       testing_string = "1234567890"
       expect(rsa.encrypt(testing_string).split(",").length).to eql testing_string.length
     end
-
-
   end
 
-  describe 'decrypt' do
+  describe "decrypt" do
     temp = RSA.new 0, 0, 0
     keys = temp.new_key
     rsa = RSA.new keys[0], keys[1], keys[2]
@@ -73,7 +77,7 @@ RSpec.describe RSA do
 
   end
 
-  describe 'decrypt and encrypt' do
+  describe " both decrypt and encrypt" do
     tester = RSA.new(1,2,3)
 
 
@@ -114,7 +118,7 @@ RSpec.describe RSA do
 
 
 
-  describe 'initialize' do
+  describe "initialize" do
     it "initialize with values 1 2 3 " do
       helper = RSA.new(1,2,3)
       expect(helper.n).to eq 1
@@ -135,11 +139,18 @@ RSpec.describe RSA do
       expect(helper.e).to eq 0
       expect(helper.d).to eq 0
     end
+
+    it "initialize without values" do
+      helper = RSA.new
+      expect(helper.n).to eq 0
+      expect(helper.e).to eq 0
+      expect(helper.d).to eq 0
+    end
   end
 
 
 
-  describe 'n' do
+  describe "n" do
     it "initialize with values 81 2 3 " do
       helper = RSA.new(81,2,3)
       expect(helper.n).to eq 81
@@ -157,7 +168,7 @@ RSpec.describe RSA do
 
 
 
-  describe 'e' do
+  describe "e" do
     it "initialize with values 1 77 3" do
       helper = RSA.new(1,77,3)
       expect(helper.e).to eq 77
@@ -175,7 +186,7 @@ RSpec.describe RSA do
 
 
 
-  describe 'd' do
+  describe "d" do
     it "initialized with values 1 2 342434234324 " do
       helper = RSA.new(1,2,342434234324)
       expect(helper.d).to eq 342434234324
