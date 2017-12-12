@@ -8,27 +8,38 @@ RSpec.describe RSA do
       expect(helper).to eq 3
     end
 
-    it "values[0] of the key should be >= 1" do
+    it "values[0] of the key should be positive" do
       helper = RSA.new(1,2,3).new_key
-      expect(helper[0]).to be >= 1
+      expect(helper[0]).to be >= 0
     end
 
-    it "values[1] of the key should be >= 1" do
+    it "values[1] of the key should be positive" do
       helper = RSA.new(1,2,3).new_key
-      expect(helper[1]).to be >= 1
+      expect(helper[1]).to be >= 0
     end
 
-    it "values[2] of the key should be >= 1" do
+    it "values[2] of the key should be positive" do
       helper = RSA.new(1,2,3).new_key
-      expect(helper[2]).to be >= 1
+      expect(helper[2]).to be >= 0
     end
 
   end
+
+
 
   describe 'encrypt' do
 
   end
+
+
+
   describe 'decrypt' do
+
+  end
+
+
+
+  describe 'decrypt and encrypt' do
     it "back and forth" do
       tester = RSA.new(1,2,3)
       res1 = tester.decrypt("sample string")
@@ -36,6 +47,9 @@ RSpec.describe RSA do
       expect(res1).to eq res2
     end
   end
+
+
+
 
   describe 'initialize' do
     it "1 2 3 initialize" do
@@ -53,6 +67,8 @@ RSpec.describe RSA do
     end
   end
 
+
+
   describe 'n' do
     it "when 81 2 3 initialize" do
       helper = RSA.new(81,2,3)
@@ -69,6 +85,8 @@ RSpec.describe RSA do
     end
   end
 
+
+
   describe 'e' do
     it "when 1 77 3 initialize" do
       helper = RSA.new(1,77,3)
@@ -84,6 +102,8 @@ RSpec.describe RSA do
       expect(RSA.new(999,999,999).e).to be_a_kind_of(Fixnum)
     end
   end
+
+
 
   describe 'd' do
     it "when 1 2 342434234324 initialize" do
