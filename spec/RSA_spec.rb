@@ -53,6 +53,15 @@ RSpec.describe RSA do
       testing_string = "1234567890"
       expect(rsa.encrypt(testing_string).split(",").length).to eql testing_string.length
     end
+
+    it "encrypting the decrypted encrypted string" do
+      temp = RSA.new 0, 0, 0
+      keys = temp.new_key
+      rsa = RSA.new keys[0], keys[1], keys[2]
+      string =  "to be encrypted many timesss"
+      expect(rsa.encrypt (rsa.decrypt(rsa.encrypt string))).to eq rsa.encrypt string
+    end
+
   end
 
   describe "decrypt" do
