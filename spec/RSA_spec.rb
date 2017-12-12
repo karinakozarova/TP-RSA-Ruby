@@ -26,15 +26,15 @@ RSpec.describe RSA do
   end
 
   describe 'encrypt' do
-  	
+
   end
   describe 'decrypt' do
-  	it "back and forth" do
-  	    tester = RSA.new(1,2,3)
-		res1 = tester.decrypt("sample string")
-		res2 = tester.decrypt("sample string")
-		expect(res1).to eq res2
-	end
+    it "back and forth" do
+      tester = RSA.new(1,2,3)
+      res1 = tester.decrypt("sample string")
+      res2 = tester.decrypt("sample string")
+      expect(res1).to eq res2
+    end
   end
 
   describe 'initialize' do
@@ -63,6 +63,10 @@ RSpec.describe RSA do
       helper = RSA.new(1024,1024,1024)
       expect(helper.n).to eq 1024
     end
+
+    it "expect to be of type Fixnum" do
+      expect(RSA.new(999,999,999).n).to be_a_kind_of(Fixnum)
+    end
   end
 
   describe 'e' do
@@ -75,6 +79,10 @@ RSpec.describe RSA do
       helper = RSA.new(999,999,999)
       expect(helper.e).to eq 999
     end
+
+    it "expect to be of type Fixnum" do
+      expect(RSA.new(999,999,999).e).to be_a_kind_of(Fixnum)
+    end
   end
 
   describe 'd' do
@@ -86,6 +94,10 @@ RSpec.describe RSA do
     it "999 999 999 initialize" do
       helper = RSA.new(999,999,999)
       expect(helper.d).to eq 999
+    end
+
+    it "expect to be of type Fixnum" do
+      expect(RSA.new(999,999,999).d).to be_a_kind_of(Fixnum)
     end
   end
 
