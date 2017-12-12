@@ -5,6 +5,60 @@ class RSA
   @e
   @d
 
+  def initialize n = 0, e = 0, d =0
+    @n = n
+    @e = e
+    @d = d
+  end
+
+  def n
+    @n
+  end
+
+  def e
+    @e
+  end
+
+  def d
+    @d
+  end
+
+  def new_key
+    p = gen_distinct_primes
+    q = gen_distinct_primes
+
+    λ = calc_λ(p,q)
+    e = generate_random_coprime
+    d  = calculate_d(λ,e)
+
+    initialize p*q,e,d
+    [p * q, e, d]
+
+  end
+
+  def encrypt message
+    encrypted_array = Array.new
+
+    message.each_char do |ch|
+      ch = ch.ord #.ord -> to ascii
+      encrypted_char = ch ** e % n
+      encrypted_array << encrypted_char
+    end
+
+    encrypted_array = encrypted_array.to_s[1..-2]
+    encrypted_array
+  end
+
+  def decrypt message
+    decrypted_array = String.new
+    message.split(', ').each do |num|
+      decrypted_char = num.to_i ** d % n
+      decrypted_array << decrypted_char.chr # .chr -> to char
+    end
+    decrypted_array
+  end
+
+  private
   def gen_distinct_primes
     (Prime.first 120)[10 + Random.new.rand(110)]
   end
@@ -26,19 +80,15 @@ class RSA
       num
     end
 
-
     def is_prime?(number)
-      #i = number / 2
       if number <= 1
         return false
       end
       i = 2
-      #while i > 1
       while i < number
         if number % i == 0
           return false
         end
-        #i -= 1
         i += 1
       end
       return true
@@ -46,24 +96,6 @@ class RSA
 
     def gcd a, b #stack exchange credit
       b == 0 ? a : gcd(b, a.modulo(b))
-    end
-
-    def initialize n = 0, e = 0, d =0
-      @n = n
-      @e = e
-      @d = d
-    end
-
-    def n
-      @n
-    end
-
-    def e
-      @e
-    end
-
-    def d
-      @d
     end
 
     def calculate_d λ,e
@@ -74,51 +106,11 @@ class RSA
           break
         end
       end
+      @d = d
       d
     end
 
     def calc_λ p,q
       (p - 1).lcm(q - 1)
     end
-
-    def new_key
-      p = gen_distinct_primes
-      q = gen_distinct_primes
-
-      λ = calc_λ(p,q)
-      e = generate_random_coprime
-      d  = calculate_d(λ,e)
-
-      initialize p*q,e,d
-      [p * q, e, d]
-
-    end
-
-    def encrypt message
-      encrypted_array = Array.new
-
-      message.each_char do |ch|
-        ch = ch.ord #.ord -> to ascii
-        encrypted_char = ch ** e % n
-        encrypted_array << encrypted_char
-      end
-
-      encrypted_array = encrypted_array.to_s[1..-2]
-      encrypted_array
-    end
-
-    def decrypt message
-      decrypted_array = String.new
-      message.split(', ').each do |num|
-        decrypted_char = num.to_i ** d % n
-        decrypted_array << decrypted_char.chr # .chr -> to char
-      end
-      decrypted_array
-    end
-  end
-
-  beta = RSA.new 0, 0, 0
-  keys = beta.new_key
-
-  rsa = RSA.new keys[0], keys[1], keys[2]
-  puts rsa.decrypt(rsa.encrypt "test")
+end
