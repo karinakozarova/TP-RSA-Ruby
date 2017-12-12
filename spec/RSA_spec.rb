@@ -28,19 +28,42 @@ RSpec.describe RSA do
 
 
   describe 'encrypt' do
+    keys = RSA.new(0, 0, 0).new_key
+    rsa = RSA.new keys[0], keys[1], keys[2]
+
+    it "length of string does not change" do
+      testing_string = "lorem ipsulm"
+      expect(rsa.encrypt(testing_string).split(",").length).to eql testing_string.length
+    end
+
+
+    it "length of empty string does not change" do
+      testing_string = ""
+      expect(rsa.encrypt(testing_string).split(",").length).to eql testing_string.length
+    end
+
+
+    it "length of numeric string does not change" do
+      testing_string = "1234567890"
+      expect(rsa.encrypt(testing_string).split(",").length).to eql testing_string.length
+    end
+
 
   end
 
-
-
-  describe 'decrypt' do
-
+  describe 'encrypt' do
+    it "Christmas easter egg :) " do
+      temp = RSA.new 0, 0, 0
+      keys = temp.new_key
+      rsa = RSA.new keys[0], keys[1], keys[2]
+      string =  "We wish you a Merry Christmas!"
+      expect(rsa.decrypt(rsa.encrypt string)).to eq string
+    end
   end
-
-
 
   describe 'decrypt and encrypt' do
     tester = RSA.new(1,2,3)
+
 
     it "make sure when decrypted the encrypted string remains the same" do
       res1 = tester.decrypt("sample string")
@@ -67,6 +90,13 @@ RSpec.describe RSA do
       res2 = tester.decrypt("")
       expect(res1).to eq res2
     end
+
+    it "mixed(nums+letters)string" do
+      res1 = tester.decrypt("asdsd343sddfsf")
+      res2 = tester.decrypt("asdsd343sddfsf")
+      expect(res1).to eq res2
+    end
+
 
   end
 
