@@ -52,13 +52,25 @@ RSpec.describe RSA do
   end
 
   describe 'encrypt' do
+    temp = RSA.new 0, 0, 0
+    keys = temp.new_key
+    rsa = RSA.new keys[0], keys[1], keys[2]
+
     it "Christmas easter egg :) " do
-      temp = RSA.new 0, 0, 0
-      keys = temp.new_key
-      rsa = RSA.new keys[0], keys[1], keys[2]
       string =  "We wish you a Merry Christmas!"
       expect(rsa.decrypt(rsa.encrypt string)).to eq string
     end
+
+    it "testing string" do
+      string =  "I want to sleep..."
+      expect(rsa.decrypt(rsa.encrypt string)).to eq string
+    end
+
+     it "testing numeric string" do
+      string =  "11.22.345.5556546345.1999"
+      expect(rsa.decrypt(rsa.encrypt string)).to eq string
+    end
+
   end
 
   describe 'decrypt and encrypt' do
