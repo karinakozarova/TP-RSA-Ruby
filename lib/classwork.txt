@@ -1,0 +1,32 @@
+POST url/rsas # returns id,creates new key
+POST url/rsas?b=1&d=4&e=1 # initialize
+
+GET /url/rsas/:id?values=public # returns n,e
+GET /url/rsas/:id?values=private # returns d
+GET /url/rsas/:id?values=all # returns n,e,d
+
+POST url/rsas/:id/encryption_messages?m=your_message
+GET /url/rsas/:id/encrypted_messages/:message_id
+
+POST /url/rsas/:id/decryption_messages?message_id=messg_id
+
+
+
+POST url/new_key 
+POST url/initialize 
+
+GET url/n?id=id_you_want
+GET url/e?id=id_you_want
+GET url/d?id=id_you_want
+
+POST url/encrypt?encrypted_message=string_input
+POST url/decrypt?decrypted_message=string_input
+
+Heroku app, doing this ^
+3 controllers
+rsas
+enc_messages
+dec_messages
+
+3 models:
+rsa, in server,decryption
