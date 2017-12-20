@@ -25,6 +25,12 @@ RSpec.describe RSA do
 
   end
 
+ describe "code coverage" do
+    it "of class RSA" do
+      helper = RSA.new
+      expect(helper.are_coprime(9)).to eql false
+    end
+  end
 
   describe "is instance " do
     it "of class RSA" do

@@ -58,7 +58,7 @@ class RSA
     decrypted_array
   end
 
-private
+#private
 
   def gen_distinct_primes
     (Prime.first 120)[10 + Random.new.rand(110)]
